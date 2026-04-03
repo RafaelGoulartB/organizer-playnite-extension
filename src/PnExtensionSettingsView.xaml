@@ -1,0 +1,42 @@
+<UserControl x:Class="PnExtension.PnExtensionSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:input="clr-namespace:System.Windows.Input;assembly=WindowsBase"
+             mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="400">
+             
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="keyEnumData" MethodName="GetValues" ObjectType="{x:Type system:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="input:Key"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <ObjectDataProvider x:Key="modifierEnumData" MethodName="GetValues" ObjectType="{x:Type system:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="input:ModifierKeys"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
+
+    <StackPanel Margin="20">
+        <TextBlock Text="Configuração de Atalhos (Requer reinício do Playnite)" FontWeight="Bold" Margin="0,0,0,20"/>
+        
+        <TextBlock Text="Listar Todos (List All):" Margin="0,10,0,5" />
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Modificador:" VerticalAlignment="Center" Margin="0,0,10,0" />
+            <ComboBox SelectedItem="{Binding ListAllModifier}" ItemsSource="{Binding Source={StaticResource modifierEnumData}}" Width="120" Margin="0,0,20,0" />
+            <TextBlock Text="Tecla (Key):" VerticalAlignment="Center" Margin="0,0,10,0" />
+            <ComboBox SelectedItem="{Binding ListAllKey}" ItemsSource="{Binding Source={StaticResource keyEnumData}}" Width="120" />
+        </StackPanel>
+
+        <TextBlock Text="Listar Instalados (List Installed):" Margin="0,20,0,5" />
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Modificador:" VerticalAlignment="Center" Margin="0,0,10,0" />
+            <ComboBox SelectedItem="{Binding ListInstalledModifier}" ItemsSource="{Binding Source={StaticResource modifierEnumData}}" Width="120" Margin="0,0,20,0" />
+            <TextBlock Text="Tecla (Key):" VerticalAlignment="Center" Margin="0,0,10,0" />
+            <ComboBox SelectedItem="{Binding ListInstalledKey}" ItemsSource="{Binding Source={StaticResource keyEnumData}}" Width="120" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

@@ -43,7 +43,7 @@ function ToggleSortOrder() {
     # Mantém o agrupamento e ordenação atuais da tela, só muda o sentido
     $preset.GroupingOrder = $PlayniteApi.MainView.Grouping
     $preset.SortingOrder = $PlayniteApi.MainView.SortOrder
-    
+
     if ($PlayniteApi.MainView.SortOrderDirection -eq [Playnite.SDK.Models.SortOrderDirection]::Ascending) {
         $preset.SortingOrderDirection = [Playnite.SDK.Models.SortOrderDirection]::Descending
     }
