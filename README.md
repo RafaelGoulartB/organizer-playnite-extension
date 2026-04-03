@@ -4,6 +4,9 @@ A Playnite C# Generic Plugin that enhances how your games are organized by letti
 
 The extension also offers a unique feature to automatically append and remove organizational order numbers (e.g., `1. Beaten`, `2. Playing`) natively on the Playnite database, ensuring you get exactly the sorting queue you want instead of Playnite's default alphabetical constraints.
 
+<img width="1360" height="840" alt="image" src="https://github.com/user-attachments/assets/5f997ad0-2041-4c42-acb1-22a0fb76c34c" />
+
+
 ## Features
 
 - **Toggle Settings:** Bind customizable shortcuts to switch quickly between showing only Installed games or all Games, and to toggle group sorting orders Ascending or Descending.
