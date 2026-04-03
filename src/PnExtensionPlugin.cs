@@ -64,24 +64,51 @@ namespace PnExtension
         {
             if (Application.Current != null && Application.Current.MainWindow != null)
             {
-                if (settings.ListAllKey != Key.None)
+                if (settings.ToggleListKey != Key.None)
                 {
-                    var cmdAll = new RelayCommand(() => ShowGameListAll());
-                    Application.Current.MainWindow.InputBindings.Add(new KeyBinding(cmdAll, settings.ListAllKey, settings.ListAllModifier));
+                    var cmdToggleList = new RelayCommand(() => ToggleList());
+                    Application.Current.MainWindow.InputBindings.Add(new KeyBinding(cmdToggleList, settings.ToggleListKey, settings.ToggleListModifier));
                 }
 
-                if (settings.ListInstalledKey != Key.None)
+                if (settings.ToggleSortKey != Key.None)
                 {
-                    var cmdInst = new RelayCommand(() => ShowGameListInstalled());
-                    Application.Current.MainWindow.InputBindings.Add(new KeyBinding(cmdInst, settings.ListInstalledKey, settings.ListInstalledModifier));
+                    var cmdToggleSort = new RelayCommand(() => ToggleSortOrder());
+                    Application.Current.MainWindow.InputBindings.Add(new KeyBinding(cmdToggleSort, settings.ToggleSortKey, settings.ToggleSortModifier));
                 }
             }
+        }
+
+        private void ToggleList()
+        {
+            var preset = new FilterPreset();
+            preset.Settings = PlayniteApi.MainView.GetCurrentFilterSettings();
+            
+            bool isCurrentlyInstalled = preset.Settings.IsInstalled;
+
+            if (isCurrentlyInstalled)
+            {
+                // Switch to "List All"
+                preset.Settings.IsInstalled = false;
+                preset.Settings.IsUnInstalled = false;
+            }
+            else
+            {
+                // Switch to "List Installed"
+                preset.Settings.IsInstalled = true;
+                preset.Settings.IsUnInstalled = false;
+            }
+            
+            preset.GroupingOrder = GroupableField.CompletionStatus;
+            preset.SortingOrder = SortOrder.CompletionStatus;
+            
+            PlayniteApi.MainView.ApplyFilterPreset(preset);
         }
 
         private void ShowGameListAll()
         {
             var preset = new FilterPreset();
             preset.Settings = PlayniteApi.MainView.GetCurrentFilterSettings();
+            
             preset.Settings.IsInstalled = false;
             preset.Settings.IsUnInstalled = false;
             
@@ -95,6 +122,7 @@ namespace PnExtension
         {
             var preset = new FilterPreset();
             preset.Settings = PlayniteApi.MainView.GetCurrentFilterSettings();
+            
             preset.Settings.IsInstalled = true;
             preset.Settings.IsUnInstalled = false;
             

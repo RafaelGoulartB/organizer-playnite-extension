@@ -13,30 +13,25 @@
                 <x:Type TypeName="input:Key"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-        <ObjectDataProvider x:Key="modifierEnumData" MethodName="GetValues" ObjectType="{x:Type system:Enum}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="input:ModifierKeys"/>
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
     </UserControl.Resources>
 
     <StackPanel Margin="20">
-        <TextBlock Text="Configuração de Atalhos (Requer reinício do Playnite)" FontWeight="Bold" Margin="0,0,0,20"/>
+        <TextBlock Text="Configuração de Atalhos (Requer reinício do Playnite para aplicar atualizações)" FontWeight="Bold" Margin="0,0,0,20"/>
         
-        <TextBlock Text="Listar Todos (List All):" Margin="0,10,0,5" />
+        <TextBlock Text="Alternar Listagem (Instalado / Todos):" Margin="0,10,0,5" />
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="Modificador:" VerticalAlignment="Center" Margin="0,0,10,0" />
-            <ComboBox SelectedItem="{Binding ListAllModifier}" ItemsSource="{Binding Source={StaticResource modifierEnumData}}" Width="120" Margin="0,0,20,0" />
+            <ComboBox SelectedValue="{Binding ToggleListModifier, Mode=TwoWay}" ItemsSource="{Binding AvailableModifiers}" DisplayMemberPath="Value" SelectedValuePath="Key" Width="120" Margin="0,0,20,0" />
             <TextBlock Text="Tecla (Key):" VerticalAlignment="Center" Margin="0,0,10,0" />
-            <ComboBox SelectedItem="{Binding ListAllKey}" ItemsSource="{Binding Source={StaticResource keyEnumData}}" Width="120" />
+            <ComboBox SelectedItem="{Binding ToggleListKey}" ItemsSource="{Binding Source={StaticResource keyEnumData}}" Width="120" />
         </StackPanel>
 
-        <TextBlock Text="Listar Instalados (List Installed):" Margin="0,20,0,5" />
+        <TextBlock Text="Alternar Ordenação (Ascendente / Descendente):" Margin="0,20,0,5" />
         <StackPanel Orientation="Horizontal">
             <TextBlock Text="Modificador:" VerticalAlignment="Center" Margin="0,0,10,0" />
-            <ComboBox SelectedItem="{Binding ListInstalledModifier}" ItemsSource="{Binding Source={StaticResource modifierEnumData}}" Width="120" Margin="0,0,20,0" />
+            <ComboBox SelectedValue="{Binding ToggleSortModifier, Mode=TwoWay}" ItemsSource="{Binding AvailableModifiers}" DisplayMemberPath="Value" SelectedValuePath="Key" Width="120" Margin="0,0,20,0" />
             <TextBlock Text="Tecla (Key):" VerticalAlignment="Center" Margin="0,0,10,0" />
-            <ComboBox SelectedItem="{Binding ListInstalledKey}" ItemsSource="{Binding Source={StaticResource keyEnumData}}" Width="120" />
+            <ComboBox SelectedItem="{Binding ToggleSortKey}" ItemsSource="{Binding Source={StaticResource keyEnumData}}" Width="120" />
         </StackPanel>
     </StackPanel>
 </UserControl>
