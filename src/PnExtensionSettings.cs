@@ -25,7 +25,7 @@ namespace PnExtension
         [DontSerialize]
         public Dictionary<ModifierKeys, string> AvailableModifiers { get; } = new Dictionary<ModifierKeys, string>
         {
-            { ModifierKeys.None, "Nenhum" },
+            { ModifierKeys.None, "None" },
             { ModifierKeys.Control, "Ctrl" },
             { ModifierKeys.Shift, "Shift" },
             { ModifierKeys.Alt, "Alt" },
@@ -66,7 +66,7 @@ namespace PnExtension
         public void EndEdit()
         {
             plugin.SavePluginSettings(this);
-            plugin.PlayniteApi.Dialogs.ShowMessage("Para aplicar completamente as alterações nos atalhos de teclado, você deve reiniciar o Playnite.", "Reinício Recomendado");
+            plugin.PlayniteApi.Dialogs.ShowMessage("To fully apply keyboard shortcut changes, you must restart Playnite.", "Restart Recommended");
         }
 
         public bool VerifySettings(out List<string> errors)
