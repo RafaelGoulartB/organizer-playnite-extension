@@ -1,0 +1,6 @@
+Id: PnExtension_Script
+Name: PnExtension Inicial
+Author: RafaelGoulartB
+Version: 1.0
+Module: PnExtension.psm1
+Type: Script
