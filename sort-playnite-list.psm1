@@ -56,21 +56,21 @@ function ToggleSortOrder() {
 
 function GetMainMenuItems() {
     param($getMainMenuItemsArgs)
-    
+
     $item1 = New-Object Playnite.SDK.Plugins.ScriptMainMenuItem
-    $item1.Description = "UI: Listar Todos (Agrupar Status)"
-    $item1.FunctionName = "ShowGameListAll"
-    $item1.MenuSection = "PnExtension"
-    
+    $item1.Description = "List Installed"
+    $item1.FunctionName = "ShowGameListInstalled"
+    $item1.MenuSection = "Organize Libary"
+
     $item2 = New-Object Playnite.SDK.Plugins.ScriptMainMenuItem
-    $item2.Description = "UI: Listar Instalados (Agrupar Status)"
-    $item2.FunctionName = "ShowGameListInstalled"
-    $item2.MenuSection = "PnExtension"
+    $item2.Description = "List All"
+    $item2.FunctionName = "ShowGameListAll"
+    $item2.MenuSection = "Organize Libary"
 
     $item3 = New-Object Playnite.SDK.Plugins.ScriptMainMenuItem
-    $item3.Description = "UI: Alternar Classificação (Ascendente / Descendente)"
+    $item3.Description = "Sort Order"
     $item3.FunctionName = "ToggleSortOrder"
-    $item3.MenuSection = "PnExtension"
+    $item3.MenuSection = "Organize Libary"
     
     return @($item1, $item2, $item3)
 }
