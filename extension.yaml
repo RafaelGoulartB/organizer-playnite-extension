@@ -1,5 +1,5 @@
-Id: PnExtension_Script
-Name: PnExtension Inicial
+Id: organizer-playnite-extension
+Name: Sort Games by Status
 Author: RafaelGoulartB
 Version: 1.0
 Module: PnExtension.psm1
