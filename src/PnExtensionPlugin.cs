@@ -4,6 +4,7 @@ using Playnite.SDK.Models;
 using Playnite.SDK.Plugins;
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -56,6 +57,18 @@ namespace PnExtension
                     Description = "Sort Order",
                     MenuSection = "Organize Library",
                     Action = (a) => ToggleSortOrder()
+                },
+                new MainMenuItem
+                {
+                    Description = "Add Numbers to Statuses (Force Custom Sort)",
+                    MenuSection = "Organize Library",
+                    Action = (a) => ApplySortNumbers()
+                },
+                new MainMenuItem
+                {
+                    Description = "Remove Numbers from Statuses",
+                    MenuSection = "Organize Library",
+                    Action = (a) => RemoveSortNumbers()
                 }
             };
         }
@@ -87,13 +100,11 @@ namespace PnExtension
 
             if (isCurrentlyInstalled)
             {
-                // Switch to "List All"
                 preset.Settings.IsInstalled = false;
                 preset.Settings.IsUnInstalled = false;
             }
             else
             {
-                // Switch to "List Installed"
                 preset.Settings.IsInstalled = true;
                 preset.Settings.IsUnInstalled = false;
             }
@@ -150,6 +161,61 @@ namespace PnExtension
             }
             
             PlayniteApi.MainView.ApplyFilterPreset(preset);
+        }
+
+        private readonly string[] statusOrder = new string[]
+        {
+            "Beaten",
+            "Playing",
+            "On Going",
+            "Plan to Play",
+            "Played",
+            "On Hold",
+            "Not Played",
+            "Abandoned"
+        };
+
+        private void ApplySortNumbers()
+        {
+            try
+            {
+                foreach (var status in PlayniteApi.Database.CompletionStatuses)
+                {
+                    string cleanName = Regex.Replace(status.Name, @"^\d+\.\s*", "");
+                    int index = Array.FindIndex(statusOrder, s => s.Equals(cleanName, StringComparison.OrdinalIgnoreCase));
+                    
+                    if (index >= 0)
+                    {
+                        status.Name = $"{index + 1}. {cleanName}";
+                        PlayniteApi.Database.CompletionStatuses.Update(status);
+                    }
+                }
+                PlayniteApi.Dialogs.ShowMessage("Done! Custom order numbers applied to Completion Statuses.", "Success");
+            }
+            catch (Exception ex)
+            {
+                PlayniteApi.Dialogs.ShowErrorMessage("Error updating statuses: " + ex.Message);
+            }
+        }
+
+        private void RemoveSortNumbers()
+        {
+            try
+            {
+                foreach (var status in PlayniteApi.Database.CompletionStatuses)
+                {
+                    if (Regex.IsMatch(status.Name, @"^\d+\.\s*"))
+                    {
+                        status.Name = Regex.Replace(status.Name, @"^\d+\.\s*", "");
+                        PlayniteApi.Database.CompletionStatuses.Update(status);
+                    }
+                }
+                PlayniteApi.Dialogs.ShowMessage("Done! Custom order numbers removed from Completion Statuses.", "Success");
+            }
+            catch (Exception ex)
+            {
+                PlayniteApi.Dialogs.ShowErrorMessage("Error updating statuses: " + ex.Message);
+            }
         }
     }
 }
